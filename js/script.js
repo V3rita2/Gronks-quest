@@ -11,11 +11,16 @@
 // global variables
 
 let play = document.getElementById("Gronk");
-//function to append new span to playSpace
+//function to append new room description to playSpace
 
 function gronkSpeaks(gronkEyes){
     let speak = document.createElement("span");
+    let pause = document.createElement("br");
+    let pause2 = document.createElement("br");
 
-    speak.innerText(gronkEyes);
-    document.play.appendChild(speak);
+    speak.innerText = (gronkEyes);
+    play.appendChild(speak);
+    play.appendChild(pause);
+    play.appendChild(pause2);
 };
+
