@@ -10,8 +10,20 @@ h1 {
 #spacer {
     margin-bottom: 2em;
 }
-#playSpace{
+#playSpace {
     margin-left: 15em;
     margin-right: 15em;
     
+}
+.inputLine input {
+    border: none;
+    margin: 0em;
+    padding: 0em;
+    outline-width: 0em;
+    outline-style: none;
+    font-family: inherit;
+    background: none;
+}
+.inputLine {
+    display: inline;
 }
