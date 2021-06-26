@@ -50,6 +50,31 @@ function gronkDescribes(item) {
     play.appendChild(pause);
     play.appendChild(pause2);
 };
+
+//function to tell player what they entered doesn't work
+function gronkConfuse(item, declaration) {
+    let speak = document.createElement("span");
+    let pause = document.createElement("br");
+    let pause2 = document.createElement("br");
+
+    speak.innerText = ("Gronk not know what " + declaration + " " + item + " mean. Gronk simple, use simple words." );
+    play.appendChild(speak);
+    play.appendChild(pause);
+    play.appendChild(pause2);
+};
+
+// function to tell the player they picked something up
+function gainItem(item) {
+    let speak = document.createElement("span");
+    let pause = document.createElement("br");
+    let pause2 = document.createElement("br");
+    
+    speak.innerText = ("gronk put " + item + " in pocket.");
+
+    play.appendChild(speak);
+    play.appendChild(pause);
+    play.appendChild(pause2);
+};
 //first room object
 const room0 = {
     gronkEyes: ("Hole is big and deep and smooth, Gronk can't climb out. Big statue near Gronk with shiny hand. Door away from Gronk on wall."),
@@ -65,20 +90,25 @@ $("#inputLine").submit(gronkDo);
 
 //Gronk's brain
 function gronkDo(e) {
+    e.preventDefault();
+
     let declaration = $("input").first().val();
     let item = $("input").last().val();
     //checks if player is picking something up, and puts it in their inventory
     if( declaration === "pick") {
         pockets.push(item);
+        gainItem(item);
     }
     else if(declaration === "go") {
         switch (room) {
             case 0:
                 if (item !== "door" || item !== "statue") {
-                    //DO THIS NEXT
+                    gronkConfuse(item, declaration);
                 }
         }
             
         
     }
 }
+
+$("#inputLine").submit(gronkDo());
