@@ -10,7 +10,20 @@
 */
 // global variables
 
-let play = document.getElementById("Gronk");
+const play = document.getElementById("Gronk");
+
+let pockets = [];
+
+let pants = true;
+
+let statue = "unbroken";
+// room class
+class Room {
+    constructor(gronkEyes){
+        this.gronkEyes = gronkEyes;
+    }
+    
+};
 //function to append new room description to playSpace
 
 function gronkSpeaks(gronkEyes){
@@ -24,3 +37,5 @@ function gronkSpeaks(gronkEyes){
     play.appendChild(pause2);
 };
 
+//first room object
+const room1 = new Room("Hole is big and deep and smooth, Gronk can't climb out of hole. There is large statue in hole, holding shiny key, other hand held out to take, like Gork. there is door away from Gronk in wall.")
