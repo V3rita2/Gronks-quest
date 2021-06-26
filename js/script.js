@@ -17,6 +17,8 @@ let pockets = [];
 let pants = true;
 
 let statue = "unbroken";
+
+let room = 0;
 //function to append new room description to playSpace
 
 function gronkSpeaks(gronkEyes){
@@ -31,4 +33,32 @@ function gronkSpeaks(gronkEyes){
 };
 
 //first room object
-const room1 = new Room("Hole is big and deep and smooth, Gronk can't climb out of hole. There is large statue in hole, holding shiny key, other hand held out to take, like Gork. there is door away from Gronk in wall.");
+const room0 = {
+    gronkEyes: ("Hole is big and deep and smooth, Gronk can't climb out. Big statue near Gronk holding shiny key, other hand look like Gork when taking something from Gronk. Door away from Gronk on wall."),
+
+    POI: ("statue", "door"),
+
+
+
+};
+
+//what makes the game go
+$("#inputLine").submit(gronkDo);
+
+//Gronk's brain
+function gronkDo(e) {
+    //checks if player is picking something up, and puts it in their inventory
+    if( $("input").first().val() === "pick") {
+        pockets.push($("input").last().val());
+    }
+    else if($("input").first().val() === "go") {
+        switch (room) {
+            case 0:
+                if ($("input").last().val() !== "door" || $("input").last().val() !== "statue") {
+                    //DO THIS NEXT IDIOT
+                }
+        }
+            
+        
+    }
+}
