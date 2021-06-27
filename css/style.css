@@ -27,3 +27,12 @@ h1 {
 #inputLine {
     display: inline;
 }
+.hideIt #hatedOne {
+    border: none;
+    margin: 0em;
+    padding: 0em;
+    outline-width: 0em;
+    outline-style: none;
+    font-family: inherit;
+    background: none;
+}

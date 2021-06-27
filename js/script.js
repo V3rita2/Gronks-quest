@@ -24,6 +24,18 @@ const description = {
     statue: ("statue made of stone. Holding shiny key in one hand. Other hand look like when Gork take thing from Gronk"),
     door: ("door is big and heavy. has hole in door near handle.")
 };
+
+//work around for the form reloading on submit
+const input = document.getElementById("inputLine");
+
+function noReload(e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        document.getElementById("hatedOne").click();
+    };
+};
+
+input.addEventListener("keydown", noReload);
 //function to append new room description to playSpace
 
 function gronkSpeaks(gronkEyes){
@@ -74,6 +86,7 @@ function gainItem(item) {
     play.appendChild(speak);
     play.appendChild(pause);
     play.appendChild(pause2);
+    return pockets;
 };
 //first room object
 const room0 = {
@@ -86,29 +99,37 @@ const room0 = {
 };
 
 //what makes the game go
-$("#inputLine").submit(gronkDo);
 
 //Gronk's brain
-function gronkDo(e) {
-    e.preventDefault();
 
-    let declaration = $("input").first().val();
-    let item = $("input").last().val();
-    //checks if player is picking something up, and puts it in their inventory
+let declaration = $("#command").first().val();
+let item = $("#command").last().val();
+
+function gronkDo() {
+
+    // let declaration = $("input").first().val();
+    // let item = $("input").last().val();
+    // checks if player is picking something up, and puts it in their inventory
     if( declaration === "pick") {
         pockets.push(item);
         gainItem(item);
+        return gainItem;
     }
-    else if(declaration === "go") {
-        switch (room) {
-            case 0:
-                if (item !== "door" || item !== "statue") {
-                    gronkConfuse(item, declaration);
-                }
-        }
+    else{
+        console.log("it kinda works");
+    }
+    //checks if player wants to go somewhere
+    // else if(declaration === "go") {
+    //     switch (room) {
+    //         case 0:
+    //             if (item !== "door" || item !== "statue") {
+    //                 gronkConfuse(item, declaration);
+    //             }
+    //     }
             
         
-    }
+    // }
 }
 
-$("#inputLine").submit(gronkDo());
+
+$("#hatedOne").on("click", gronkDo);
