@@ -102,33 +102,38 @@ const room0 = {
 
 //Gronk's brain
 
-let declaration = $("#command").first().val();
-let item = $("#command").last().val();
-
 function gronkDo() {
+    let stringCommand = $("#command").val();
+    let command = stringCommand.split(' ');
+    let declaration = command[0];
+    let itemNum = command.length - 1;
+    let item = command[itemNum];
 
-    // let declaration = $("input").first().val();
-    // let item = $("input").last().val();
     // checks if player is picking something up, and puts it in their inventory
     if( declaration === "pick") {
         pockets.push(item);
         gainItem(item);
         return gainItem;
     }
-    else{
-        console.log("it kinda works");
-    }
     //checks if player wants to go somewhere
-    // else if(declaration === "go") {
-    //     switch (room) {
-    //         case 0:
-    //             if (item !== "door" || item !== "statue") {
-    //                 gronkConfuse(item, declaration);
-    //             }
-    //     }
+    else if(declaration === "go") {
+        switch (room) {
+            case 0:
+                if (item !== "door" && item !== "statue") {
+                    gronkConfuse(item, declaration);
+                }
+                else if (item === "door") {
+                    gronkDescribes("door");
+                }
+                else if (item === "statue") {
+                    gronkDescribes("statue");
+                };
+                break;
+            case 1:
+        }
             
         
-    // }
+    }
 }
 
 
