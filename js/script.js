@@ -25,6 +25,19 @@ const description = {
     door: ("door is big and heavy. has hole in door near handle.")
 };
 
+const use = {
+    statue: {
+        rock: ("Gronk hit statue hand with rock, hand break. shiny key fall on ground."),
+        pants: ("Gronk put pants on statue hand, hand move down. other hand open, shiny key fall on ground.")
+    },
+    door: {
+        rock: ("Gronk hit door with rock, make loud noise. door big and stronger than Gronk, like Gork."),
+        pants: ("Gronk caress door with pants, get splinter."),
+        key: ("Gronk put key in hole, makes clunk noise, door swing open"),
+
+    }
+
+};
 //work around for the form reloading on submit
 const input = document.getElementById("inputLine");
 
@@ -64,12 +77,12 @@ function gronkDescribes(item) {
 };
 
 //function to tell player what they entered doesn't work
-function gronkConfuse(item, declaration) {
+function gronkConfuse(command) {
     let speak = document.createElement("span");
     let pause = document.createElement("br");
     let pause2 = document.createElement("br");
 
-    speak.innerText = ("Gronk not know what " + declaration + " " + item + " mean. Gronk simple, use simple words." );
+    speak.innerText = ("Gronk not know what " + command + " mean. Gronk simple, use simple words." );
     play.appendChild(speak);
     play.appendChild(pause);
     play.appendChild(pause2);
@@ -88,11 +101,28 @@ function gainItem(item) {
     play.appendChild(pause2);
     return pockets;
 };
+
+//function to use an object
+function gronkUse(tool, item) {
+    let speak = document.createElement("span");
+    let pause = document.createElement("br");
+    let pause2 = document.createElement("br");
+
+    speak.innerText = (use[item[tool]]);
+
+    play.appendChild(speak);
+    play.appendChild(pause);
+    play.appendChild(pause2);
+    pockets.splice(pockets.indexOf(item), 1);
+    return pockets;
+};
 //first room object
 const room0 = {
     gronkEyes: ("Hole is big and deep and smooth, Gronk can't climb out. Big statue near Gronk with shiny hand. Door away from Gronk on wall."),
 
     POI: ("statue", "door"),
+
+    doorOpen:  false,
 
 
 
@@ -108,6 +138,7 @@ function gronkDo() {
     let declaration = command[0];
     let itemNum = command.length - 1;
     let item = command[itemNum];
+    let tool = command[1];
 
     // checks if player is picking something up, and puts it in their inventory
     if( declaration === "pick") {
@@ -120,7 +151,7 @@ function gronkDo() {
         switch (room) {
             case 0:
                 if (item !== "door" && item !== "statue") {
-                    gronkConfuse(item, declaration);
+                    gronkConfuse(command);
                 }
                 else if (item === "door") {
                     gronkDescribes("door");
@@ -134,7 +165,25 @@ function gronkDo() {
             
         
     }
+    //if the player wants to use something in their inventory
+    else if (declaration === "use" && pockets.indexOf(item) >=0 ) {
+        switch (room) {
+            case 0:
+                if(tool !== "key" && tool !== "rock" && tool !== "pants") {
+                    gronkConfuse(command);
+                }
+                else {
+                    switch (item) {
+                        case "statue":
+                            if(item === "rock") {
+                                gronkUse(tool, item);
+                                return gronkUse;
+                            }
+                    }
+                }
+        }
+
+    }
+
 }
-
-
 $("#hatedOne").on("click", gronkDo);
