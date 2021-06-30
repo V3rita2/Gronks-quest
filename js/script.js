@@ -27,7 +27,8 @@ const description = {
     door: ("door is big and heavy. has hole in door near handle."),
     pig: ("pig is big and asleep, snores loud. Gronk not like pigs. Pig snore so loud leaf near pig blown around by snore sound."),
     table: ("Table is wood, pointy stone have spirals on it. Gronk not know what words mean. Maybe Mork, the brutally cunning, know what words mean. Gronk read words for Mork. 'You can Often see my effects, Although I am not ever seen. I come after the cross, Before the screen, and in between the taper.' "),
-    rock: ("Rock is metal and big. Gronk can't move rock. Light is on other side of rock.")
+    rock: ("Rock is metal and big. Gronk can't move rock. Light is on other side of rock."),
+    stick: ("Gronk grab stick to look at, pull on stick, it move. Big metal rock fall into floor. Gronk see light clearly now that rock is gone. Gronk see all obstacles in Gronk's way."),
 };
 
 const use = {
@@ -95,6 +96,11 @@ function gronkDescribes(item) {
     play.appendChild(speak);
     play.appendChild(pause);
     play.appendChild(pause2);
+
+    if (item === "stick"){
+        room1.doorOpen = true;
+        return room1.doorOpen;
+    };
 };
 
 //function to tell player what they entered doesn't work
@@ -151,6 +157,10 @@ function gronkUse(tool, item) {
     else if (tool === "pig" && item === "rock"){
         gronk = false;
         return gronk;
+    }
+    else if (tool === "pig" && item === "table"){
+        room1.stoneSolved = true;
+        return room1.stoneSolved;
     };
     return pockets;
 };
@@ -320,7 +330,7 @@ function gronkDo() {
                 
                 break;
             case 1:
-                if (item !== "pig" && item !== "table" && item !== "rock") {
+                if (item !== "pig" && item !== "table" && item !== "rock" && item !== "stick") {
                     gronkConfuse(command);
                 }
                 else if (item === "pig") {
@@ -330,6 +340,12 @@ function gronkDo() {
                     gronkDescribes(item);
                 }
                 else if (item === "rock" && room1.doorOpen === false) {
+                    gronkDescribes(item);
+                }
+                else if (item === "stick" && room1.stoneSolved === false) {
+                    gronkConfuse(command);
+                }
+                else if (item === "stick" && room1.stoneSolved === true) {
                     gronkDescribes(item);
                 }
                 else if (item === "rock" && room1.doorOpen === true) {
