@@ -116,6 +116,19 @@ function gronkUse(tool, item) {
     pockets.splice(pockets.indexOf(item), 1);
     return pockets;
 };
+
+//function to explain the game
+function howToPlay() {
+    let speak = document.createElement("span");
+    let pause = document.createElement("br");
+    let pause2 = document.createElement("br");
+
+    speak.innerText = ("Gronk isn't very smart, so he only understands very specific phrases, like 'pick up rock' or 'go to door' try and keep your directions to him short and simple, or he will get confused.");
+
+    play.appendChild(speak);
+    play.appendChild(pause);
+    play.appendChild(pause2);
+}
 //first room object
 const room0 = {
     gronkEyes: ("Hole is big and deep and smooth, Gronk can't climb out. Big statue near Gronk with shiny hand. Door away from Gronk on wall."),
@@ -177,7 +190,8 @@ function gronkDo() {
                         case "statue":
                             if(item === "rock") {
                                 gronkUse(tool, item);
-                                return gronkUse;
+                                let statue = "broken";
+                                return statue;
                             }
                     }
                 }
@@ -187,3 +201,4 @@ function gronkDo() {
 
 }
 $("#hatedOne").on("click", gronkDo);
+$(".tutorial").on("click", howToPlay);
