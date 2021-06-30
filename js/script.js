@@ -269,8 +269,15 @@ const room1 = {
 };
 
 const room2 = {
-    gronkEyes: ("Gronk see nothing, God not know what third puzzle is yet.")
-    //MAKE ROOM THREE IDIOT
+    gronkEyes: ("Gronk see two button on large smooth stone. stone have words on it. Gronk also see metal rock far from Gronk, like last room."),
+    
+    POI: ("stone", "rock", "red", "blue"),
+
+    doorOpen: false,
+
+    blue: false,
+
+    red: false,
 };
 
 //what makes the game go
