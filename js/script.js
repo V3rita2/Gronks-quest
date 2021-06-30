@@ -51,7 +51,11 @@ const use = {
     rock: {
         pants: ("Gronk throw pants at rock, rocks seem displeased by hit with pants."),
         pig: ("Gronk throw pig at rock, Pig make loud noise and go splat on rock. Pig now ex-pig. Gronk hear loud boom, Room shakes. Loud voice say to gronk from sky 'I am The Great Swine Soul Siphon, And You Have Slain My Swine. Perish. Gronk feel great pain of 200-500 wild boar for 3-5 minutes. Gronk is now Ex-gronk.")
-    }
+    },
+    stick: {
+        pants: ("Gronk put pants on stick. Stick moves little."),
+        pig: ("gronk not think put pig on stick good idea"),
+    },
 
 };
 //work around for the form reloading on submit
@@ -171,6 +175,19 @@ function notHere(item) {
     play.appendChild(pause2);
 };
 
+//function for if gronk doesn't like something
+function gronkFear(item) {
+    let speak = document.createElement("span");
+    let pause = document.createElement("br");
+    let pause2 = document.createElement("br");
+
+    speak.innerText = ("Gronk not like " + item + " touch bad. Gronk no take.");
+
+    play.appendChild(speak);
+    play.appendChild(pause);
+    play.appendChild(pause2);
+};
+
 //function to explain the game
 function howToPlay() {
     let speak = document.createElement("span");
@@ -225,7 +242,7 @@ const room0 = {
 const room1 = {
     gronkEyes: ("Gronk open door, see room. Room dark and cold. Has small pointy stone on table in middle, with words on it. Pig in room asleep. Big metal rock cover exit, Gronk see light on other side."),
 
-    POI: ("pig", "rock", "table"),
+    POI: ("pig", "rock", "table", "stick"),
 
     doorOpen: false,
 
@@ -260,6 +277,12 @@ function gronkDo() {
                 };
                 break;
             case 1:
+                if (item !== "pig" && item !== "pants" && item !== "stick") {
+                    notHere(item);
+                }
+                else if (item === "pig") {
+                   
+                }
         };
        
     }
