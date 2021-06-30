@@ -184,7 +184,7 @@ function credits() {
     play.appendChild(pause);
     play.appendChild(pause2);
 };
-rooms
+//rooms
 const room0 = {
     gronkEyes: ("Hole is big and deep and smooth, Gronk can't climb out. Big statue near Gronk with shiny hand. Door away from Gronk on wall."),
 
