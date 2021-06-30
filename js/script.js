@@ -20,7 +20,7 @@ let statue = true;
 
 let room = 0;
 
-let Gronk =true;
+let gronk =true;
 
 const description = {
     statue: ("statue made of stone. Holding shiny key in one hand. Other hand look like when Gork take thing from Gronk"),
@@ -42,7 +42,8 @@ const use = {
 
     },
     pig: {
-        pants: ("Gronk scoop pig up in pants, pig still asleep and loud, but Gronk not touching pig, so is okay.")
+        pants: ("Gronk scoop pig up in pants, pig still asleep and loud, but Gronk not touching pig, so is okay."),
+        pig: ("Gronk not know how putpig on pig. Gronk bad at origami."),
     },
     table: {
         pants: ("Gronk drape pants over stone, hear noise of stone move a little, but Gronk not see stone."),
@@ -181,7 +182,7 @@ function gronkFear(item) {
     let pause = document.createElement("br");
     let pause2 = document.createElement("br");
 
-    speak.innerText = ("Gronk not like " + item + " touch bad. Gronk no take.");
+    speak.innerText = ("Gronk not like " + item + ". touch bad. Gronk no take.");
 
     play.appendChild(speak);
     play.appendChild(pause);
@@ -246,6 +247,8 @@ const room1 = {
 
     doorOpen: false,
 
+    stoneSolved: false,
+
 };
 
 //what makes the game go
@@ -277,12 +280,15 @@ function gronkDo() {
                 };
                 break;
             case 1:
-                if (item !== "pig" && item !== "pants" && item !== "stick") {
+                if (item !== "pig" && item !== "pants") {
                     notHere(item);
                 }
                 else if (item === "pig") {
-                   
+                   gronkFear(item);
                 }
+                else if (item === "pants") {
+                    gainItem(item);
+                };
         };
        
     }
@@ -334,7 +340,6 @@ function gronkDo() {
     else if (declaration === "use") {
         // makes sure the player has the tool they are using
         if (pockets.indexOf(tool) >=0 ){
-            console.log(tool, item);
             switch (room) {
                 case 0:
                     //checks that the tool is one that can help solve the room puzzle
@@ -369,9 +374,51 @@ function gronkDo() {
                                 };
                                 break;
                         };
+                    };
+                case 1:
+                    if (tool !== "pants" && tool !== "pig") {
+                        gronkConfuse(command);
                     }
+                    else {
+                        switch (item) {
+                            case "pig":
+                                if (tool === "pig"){
+                                    gronkUse(tool, item);
+                                }
+                                else if (tool === "pants") {
+                                    gronkUse(tool, item);
+                                };
+                                break;
+                            case "table":
+                                if (tool === "pig") {
+                                    gronkUse(tool, item);
+                                }
+                                else if (tool === "pants") {
+                                    gronkUse(tool, item);
+                                }
+                                break;
+                            case "rock":
+                                if (tool === "pig") {
+                                    gronkUse(tool, item);
+                                }
+                                else if (tool === "pants") {
+                                    gronkUse(tool, item);
+                                }
+                                break;
+                            case "stick":
+                                if (tool === "pig") {
+                                    gronkUse(tool, item);
+                                }
+                                else if (tool === "pants") {
+                                    gronkUse(tool, item);
+                                }
+                                break;
+                        };
+                    };
+                case 2:   
+                
                     
-            }
+            };
         }
         //tells player they don't have the item they want to use
         else {
