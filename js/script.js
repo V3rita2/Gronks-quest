@@ -148,6 +148,10 @@ function gronkUse(tool, item) {
     else if (tool === "pants" && item === "pig"){
         pockets.push(item);
     }
+    else if (tool === "pig" && item === "rock"){
+        gronk = false;
+        return gronk;
+    };
     return pockets;
 };
 
