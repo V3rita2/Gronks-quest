@@ -20,9 +20,14 @@ let statue = true;
 
 let room = 0;
 
+let Gronk =true;
+
 const description = {
     statue: ("statue made of stone. Holding shiny key in one hand. Other hand look like when Gork take thing from Gronk"),
-    door: ("door is big and heavy. has hole in door near handle.")
+    door: ("door is big and heavy. has hole in door near handle."),
+    pig: ("pig is big and asleep, snores loud. Gronk not like pigs. Pig snore so loud leaf near pig blown around by snore sound."),
+    table: ("Table is wood, pointy stone have spirals on it. Gronk not know what words mean. Maybe Mork, the brutally cunning, know what words mean. Gronk read words for Mork. 'You can Often see my effects, Although I am not ever seen. I come after the cross, Before the screen, and in between the taper.' "),
+    rock: ("Rock is metal and big. Gronk can't move rock. Light is on other side of rock.")
 };
 
 const use = {
@@ -35,6 +40,17 @@ const use = {
         pants: ("Gronk caress door with pants, get splinter."),
         key: ("Gronk put key in hole, makes clunk noise, door swing open"),
 
+    },
+    pig: {
+        pants: ("Gronk scoop pig up in pants, pig still asleep and loud, but Gronk not touching pig, so is okay.")
+    },
+    table: {
+        pants: ("Gronk drape pants over stone, hear noise of stone move a little, but Gronk not see stone."),
+        pig: ("gronk hold pig up to stone, Pig snore on stone. Gronk hear noise of stone move, see stone come apart. Stick come out of table where stone was"),
+    },
+    rock: {
+        pants: ("Gronk throw pants at rock, rocks seem displeased by hit with pants."),
+        pig: ("Gronk throw pig at rock, Pig make loud noise and go splat on rock. Pig now ex-pig. Gronk hear loud boom, Room shakes. Loud voice say to gronk from sky 'I am The Great Swine Soul Siphon, And You Have Slain My Swine. Perish. Gronk feel great pain of 200-500 wild boar for 3-5 minutes. Gronk is now Ex-gronk.")
     }
 
 };
@@ -116,11 +132,7 @@ function gronkUse(tool, item) {
     play.appendChild(pause2);
     pockets.splice(pockets.indexOf(item), 1);
     
-    if (tool === "pants") {
-        pants = false;
-        return pants;
-    }
-    else if (item === "statue") {
+    if (item === "statue") {
         statue = false;
         return statue;
     }
@@ -178,7 +190,21 @@ function credits() {
     let pause = document.createElement("br");
     let pause2 = document.createElement("br");
 
-    speak.innerText = ("QA consultants: Scubatapir, Jerome Chandler. QA testers: Space, Sage, Vanitas. Puzzle consultants: D&D 5e Dungeon Master's guide, Nico, The 5th Element.");
+    speak.innerText = ("QA consultants: Scubatapir, Jerome Chandler. QA testers: Space, Sage, Vanitas, Rena, Chtulhulhu, CedTech, Tankilorian. Puzzle consultants: D&D 5e Dungeon Master's guide, Nico, The 5th Element.");
+
+    play.appendChild(speak);
+    play.appendChild(pause);
+    play.appendChild(pause2);
+};
+
+//if gronk dies
+
+function exGronk() {
+    let speak = document.createElement("span");
+    let pause = document.createElement("br");
+    let pause2 = document.createElement("br");
+
+    speak.innerText = ("Gronk has become ex-gronk. please reload the page and try again.")
 
     play.appendChild(speak);
     play.appendChild(pause);
@@ -197,7 +223,7 @@ const room0 = {
 };
 
 const room1 = {
-    gronkEyes: ("Gronk open door, see room .Room dark and cold. Has small pointy stone on table in middle, with words on it. Pig in room asleep. Big metal rock cover exit, Gronk see light on other side."),
+    gronkEyes: ("Gronk open door, see room. Room dark and cold. Has small pointy stone on table in middle, with words on it. Pig in room asleep. Big metal rock cover exit, Gronk see light on other side."),
 
     POI: ("pig", "rock", "table"),
 
@@ -210,6 +236,8 @@ const room1 = {
 //Gronk's brain
 
 function gronkDo() {
+    //makes sure gronk is alive to do
+    if (gronk === true){
     let stringCommand = $("#command").val();
     let command = stringCommand.split(' ');
     let declaration = command[0];
@@ -243,10 +271,10 @@ function gronkDo() {
                     gronkConfuse(command);
                 }
                 else if (item === "door" && room0.doorOpen === false) {
-                    gronkDescribes("door");
+                    gronkDescribes(item);
                 }
                 else if (item === "statue") {
-                    gronkDescribes("statue");
+                    gronkDescribes(item);
                 }
                 else if (item === "door" && room0.doorOpen === true) {
                     gronkSpeaks(room1.gronkEyes);
@@ -256,6 +284,25 @@ function gronkDo() {
                 
                 break;
             case 1:
+                if (item !== "pig" && item !== "table" && item !== "rock") {
+                    gronkConfuse(command);
+                }
+                else if (item === "pig") {
+                    gronkDescribes(item);
+                }
+                else if (item === "table") {
+                    gronkDescribes(item);
+                }
+                else if (item === "rock" && room1.doorOpen === false) {
+                    gronkDescribes(item);
+                }
+                else if (item === "rock" && room1.doorOpen === true) {
+                    gronkSpeaks(room2.gronkEyes);
+                    room += 1;
+                    return room;
+                };
+                break;
+            case 2:
         }
             
         
@@ -313,8 +360,11 @@ function gronkDo() {
     else if (declaration === "play") {
         gronkSpeaks(room0.gronkEyes);
     }
-
-}
+    }
+    else if (gronk === false) {
+        exGronk();
+    };
+};
 $("#hatedOne").on("click", gronkDo);
 $(".tutorial").on("click", howToPlay);
 $(".credits").on("click", credits);
