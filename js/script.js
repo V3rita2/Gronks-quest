@@ -268,6 +268,11 @@ const room1 = {
 
 };
 
+const room2 = {
+    gronkEyes: ("Gronk see nothing, God not know what third puzzle is yet.")
+    //MAKE ROOM THREE IDIOT
+};
+
 //what makes the game go
 
 //Gronk's brain
