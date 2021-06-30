@@ -99,10 +99,11 @@ function gainItem(item) {
     play.appendChild(speak);
     play.appendChild(pause);
     play.appendChild(pause2);
+    pockets.push(item);
     return pockets;
 };
 
-//function to use an object
+//function to use a tool
 function gronkUse(tool, item) {
     let speak = document.createElement("span");
     let pause = document.createElement("br");
@@ -117,13 +118,41 @@ function gronkUse(tool, item) {
     return pockets;
 };
 
+//function for when player tries to use tool they dont have
+function noTool(tool) {
+    let speak = document.createElement("span");
+    let pause = document.createElement("br");
+    let pause2 = document.createElement("br");
+
+    speak.innerText = ("Gronk not have " + tool);
+
+    play.appendChild(speak);
+    play.appendChild(pause);
+    play.appendChild(pause2);
+
+};
+
+//function to limit what player can pick up
+function notHere(item) {
+    let speak = document.createElement("span");
+    let pause = document.createElement("br");
+    let pause2 = document.createElement("br");
+
+    speak.innerText = ("Gronk not see " + item + " anywhere.");
+
+    
+    play.appendChild(speak);
+    play.appendChild(pause);
+    play.appendChild(pause2);
+};
+
 //function to explain the game
 function howToPlay() {
     let speak = document.createElement("span");
     let pause = document.createElement("br");
     let pause2 = document.createElement("br");
 
-    speak.innerText = ("Gronk isn't very smart, so he only understands very specific phrases, like 'pick up rock' or 'go to door' try and keep your directions to him short and simple, or he will get confused.");
+    speak.innerText = ("Gronk isn't very smart, so he only understands very specific phrases, like 'pick up rock' or 'go to door' try and keep your directions to him short and simple, or he will get confused.To start game, type 'play'.");
 
     play.appendChild(speak);
     play.appendChild(pause);
@@ -168,9 +197,21 @@ function gronkDo() {
 
     // checks if player is picking something up, and puts it in their inventory
     if( declaration === "pick") {
-        pockets.push(item);
-        gainItem(item);
-        return gainItem;
+        switch (room) {
+            case 0:
+                if (item !== "rock" && item !== "pants" && statue === "unbroken"){
+                    notHere(item);
+                }
+                else if (item === "rock" || item === "pants") {
+                    gainItem(item);
+                }
+                else if (item === "key" && statue === "broken") {
+                    gainItem(item);
+                };
+                break;
+            case 1:
+        };
+       
     }
     //checks if player wants to go somewhere
     else if(declaration === "go") {
@@ -202,33 +243,48 @@ function gronkDo() {
                         gronkConfuse(command);
                     }
                     else {
+                        //checks which item the player is targeting
                         switch (item) {
                             case "statue":
                                 if(item === "rock") {
                                     gronkUse(tool, item);
                                     let statue = "broken";
-                                    return gronkUse;
-                                    
+                                    return statue;
                                 }
-                        }
+                                else if (item === "pants") {
+                                    gronkUse(tool, item);
+                                    let pants = false;
+                                    return pants;
+                                }
+                                else if (item === "key") {
+                                    gronkConfuse(command);
+                                };
+                                break;
+                            case "door":
+                                if (item === "rock") {
+                                    gronkUse(item, tool);
+                                }
+                                else if (item === "pants") {
+                                    gronkUse(itme, tool);
+                                }
+                                else if (item === "key") {
+                                    gronkUse(item, tool);
+                                };
+                                break;
+                        };
                     }
                     
             }
         }
         //tells player they don't have the item they want to use
         else {
-         let speak = document.createElement("span");
-         let pause = document.createElement("br");
-         let pause2 = document.createElement("br");
-
-         speak.innerText = ("Gronk not have " + tool);
-
-         play.appendChild(speak);
-         play.appendChild(pause);
-         play.appendChild(pause2);
+            noTool(tool);
         }
         
 
+    }
+    else if (declaration === "play") {
+        gronkSpeaks(room0.gronkEyes);
     }
 
 }
