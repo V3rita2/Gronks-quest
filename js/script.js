@@ -403,6 +403,7 @@ function gronkDo() {
                                 break;
                         };
                     };
+                    break;
                 case 1:
                     if (tool !== "pants" && tool !== "pig") {
                         gronkConfuse(command);
