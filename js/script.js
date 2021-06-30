@@ -135,7 +135,7 @@ function gronkUse(tool, item) {
     play.appendChild(speak);
     play.appendChild(pause);
     play.appendChild(pause2);
-    pockets.splice(pockets.indexOf(item), 1);
+    pockets.splice(pockets.indexOf(tool), 1);
     
     if (item === "statue") {
         statue = false;
@@ -144,6 +144,9 @@ function gronkUse(tool, item) {
     else if (tool === "key" && item === "door") {
         room0.doorOpen = true;
         return room0.doorOpen;
+    }
+    else if (tool === "pants" && item === "pig"){
+        pockets.push(item);
     }
     return pockets;
 };
