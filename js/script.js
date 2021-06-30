@@ -172,7 +172,7 @@ function howToPlay() {
     play.appendChild(pause2);
 }
 
-function to display credits
+//function to display credits
 function credits() {
     let speak = document.createElement("span");
     let pause = document.createElement("br");
