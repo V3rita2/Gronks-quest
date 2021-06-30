@@ -165,7 +165,7 @@ function howToPlay() {
     let pause = document.createElement("br");
     let pause2 = document.createElement("br");
 
-    speak.innerText = ("Gronk isn't very smart, so he only understands very specific phrases, like 'pick up rock' or 'go to door' try and keep your directions to him short and simple, or he will get confused.To start game, type 'play'.");
+    speak.innerText = ("Gronk isn't very smart, so he only understands very specific phrases, like 'pick up rock' or 'go to door' try and keep your directions to him short and simple, or he will get confused.To start game, type 'play'. He also needs to 'use' tools on things in the room to interact with them, he's really dumb.");
 
     play.appendChild(speak);
     play.appendChild(pause);
@@ -186,7 +186,7 @@ function credits() {
 };
 //rooms
 const room0 = {
-    gronkEyes: ("Hole is big and deep and smooth, Gronk can't climb out. Big statue near Gronk with shiny hand. Door away from Gronk on wall."),
+    gronkEyes: ("Hole is big and deep and smooth, Gronk can't climb out. Big statue near Gronk with shiny hand. Door away from Gronk on wall. rocks on ground heavy, good size to hold. Gronk glad Gronk's pants still intact."),
 
     POI: ("statue", "door"),
 
