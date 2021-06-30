@@ -206,6 +206,19 @@ function gronkFear(item) {
     play.appendChild(pause2);
 };
 
+//play function to start or reset
+function start() {
+    room = 0;
+    room0.doorOpen = false;
+    room1.doorOpen = false;
+    room1.stoneSolved = false;
+    room2.doorOpen = false;
+    room2.red = false;
+    room2.blue = false;
+    gronk = true;
+    pants = true;
+    statue = true;
+};
 //function to explain the game
 function howToPlay() {
     let speak = document.createElement("span");
@@ -239,7 +252,7 @@ function exGronk() {
     let pause = document.createElement("br");
     let pause2 = document.createElement("br");
 
-    speak.innerText = ("Gronk has become ex-gronk. please reload the page and try again.")
+    speak.innerText = ("Gronk has become ex-gronk. please type 'play' to try again.")
 
     play.appendChild(speak);
     play.appendChild(pause);
@@ -285,14 +298,16 @@ const room2 = {
 //Gronk's brain
 
 function gronkDo() {
-    //makes sure gronk is alive to do
-    if (gronk === true){
+
     let stringCommand = $("#command").val();
     let command = stringCommand.split(' ');
     let declaration = command[0];
     let itemNum = command.length - 1;
     let item = command[itemNum];
     let tool = command[1];
+
+    //makes sure gronk is alive to do
+    if (gronk === true){
 
     // checks if player is picking something up, and puts it in their inventory
     if( declaration === "pick") {
@@ -462,10 +477,11 @@ function gronkDo() {
         }
         
 
+        }
     }
     else if (declaration === "play") {
+        start();
         gronkSpeaks(room0.gronkEyes);
-    }
     }
     else if (gronk === false) {
         exGronk();
