@@ -16,7 +16,7 @@ let pockets = [];
 
 let pants = true;
 
-let statue = "unbroken";
+let statue = true;
 
 let room = 0;
 
@@ -109,12 +109,25 @@ function gronkUse(tool, item) {
     let pause = document.createElement("br");
     let pause2 = document.createElement("br");
 
-    speak.innerText = (use[item[tool]]);
+    speak.innerText = (use[item][tool]);
 
     play.appendChild(speak);
     play.appendChild(pause);
     play.appendChild(pause2);
     pockets.splice(pockets.indexOf(item), 1);
+    
+    if (tool === "pants") {
+        pants = false;
+        return pants;
+    }
+    else if (tool === "rock" && item === "statue") {
+        statue = false;
+        return statue;
+    }
+    else if (tool === "key" && item === "door") {
+        room0.doorOpen = true;
+        return room0.doorOpen;
+    }
     return pockets;
 };
 
@@ -171,7 +184,7 @@ function credits() {
     play.appendChild(pause);
     play.appendChild(pause2);
 };
-//first room object
+//rooms
 const room0 = {
     gronkEyes: ("Hole is big and deep and smooth, Gronk can't climb out. Big statue near Gronk with shiny hand. Door away from Gronk on wall."),
 
@@ -180,6 +193,15 @@ const room0 = {
     doorOpen:  false,
 
 
+
+};
+
+const room1 = {
+    gronkEyes: ("Gronk open door, see room .Room dark and cold. Has small pointy stone on table in middle, with words on it. Pig in room asleep. Big metal rock cover exit, Gronk see light on other side."),
+
+    POI: ("pig", "rock", "table"),
+
+    doorOpen: false,
 
 };
 
@@ -199,13 +221,13 @@ function gronkDo() {
     if( declaration === "pick") {
         switch (room) {
             case 0:
-                if (item !== "rock" && item !== "pants" && statue === "unbroken"){
+                if (item !== "rock" && item !== "pants" && statue === true){
                     notHere(item);
                 }
                 else if (item === "rock" || item === "pants") {
                     gainItem(item);
                 }
-                else if (item === "key" && statue === "broken") {
+                else if (item === "key" && statue === false) {
                     gainItem(item);
                 };
                 break;
@@ -220,12 +242,18 @@ function gronkDo() {
                 if (item !== "door" && item !== "statue") {
                     gronkConfuse(command);
                 }
-                else if (item === "door") {
+                else if (item === "door" && room0.doorOpen === false) {
                     gronkDescribes("door");
                 }
                 else if (item === "statue") {
                     gronkDescribes("statue");
-                };
+                }
+                else if (item === "door" && room0.doorOpen === true) {
+                    gronkSpeaks(room1.gronkEyes);
+                    room += 1;
+                    return room;
+                }
+                
                 break;
             case 1:
         }
@@ -236,6 +264,7 @@ function gronkDo() {
     else if (declaration === "use") {
         // makes sure the player has the tool they are using
         if (pockets.indexOf(tool) >=0 ){
+            console.log(tool, item);
             switch (room) {
                 case 0:
                     //checks that the tool is one that can help solve the room puzzle
@@ -246,29 +275,27 @@ function gronkDo() {
                         //checks which item the player is targeting
                         switch (item) {
                             case "statue":
-                                if(item === "rock") {
+                                if(tool === "rock") {
                                     gronkUse(tool, item);
-                                    let statue = "broken";
-                                    return statue;
+                                   
                                 }
-                                else if (item === "pants") {
+                                else if (tool === "pants") {
                                     gronkUse(tool, item);
-                                    let pants = false;
-                                    return pants;
+                                   
                                 }
-                                else if (item === "key") {
+                                else if (tool === "key") {
                                     gronkConfuse(command);
                                 };
                                 break;
                             case "door":
-                                if (item === "rock") {
-                                    gronkUse(item, tool);
+                                if (tool === "rock") {
+                                    gronkUse(tool, item);
                                 }
-                                else if (item === "pants") {
-                                    gronkUse(itme, tool);
+                                else if (tool === "pants") {
+                                    gronkUse(tool, item);
                                 }
-                                else if (item === "key") {
-                                    gronkUse(item, tool);
+                                else if (tool === "key") {
+                                    gronkUse(tool, item);
                                 };
                                 break;
                         };
