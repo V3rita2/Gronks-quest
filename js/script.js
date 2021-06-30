@@ -192,23 +192,42 @@ function gronkDo() {
         
     }
     //if the player wants to use something in their inventory
-    else if (declaration === "use" && pockets.indexOf(item) >=0 ) {
-        switch (room) {
-            case 0:
-                if(tool !== "key" && tool !== "rock" && tool !== "pants") {
-                    gronkConfuse(command);
-                }
-                else {
-                    switch (item) {
-                        case "statue":
-                            if(item === "rock") {
-                                gronkUse(tool, item);
-                                let statue = "broken";
-                                return statue;
-                            }
+    else if (declaration === "use") {
+        // makes sure the player has the tool they are using
+        if (pockets.indexOf(tool) >=0 ){
+            switch (room) {
+                case 0:
+                    //checks that the tool is one that can help solve the room puzzle
+                    if(tool !== "key" && tool !== "rock" && tool !== "pants") {
+                        gronkConfuse(command);
                     }
-                }
+                    else {
+                        switch (item) {
+                            case "statue":
+                                if(item === "rock") {
+                                    gronkUse(tool, item);
+                                    let statue = "broken";
+                                    return gronkUse;
+                                    
+                                }
+                        }
+                    }
+                    
+            }
         }
+        //tells player they don't have the item they want to use
+        else {
+         let speak = document.createElement("span");
+         let pause = document.createElement("br");
+         let pause2 = document.createElement("br");
+
+         speak.innerText = ("Gronk not have " + tool);
+
+         play.appendChild(speak);
+         play.appendChild(pause);
+         play.appendChild(pause2);
+        }
+        
 
     }
 
