@@ -212,7 +212,7 @@ function howToPlay() {
     let pause = document.createElement("br");
     let pause2 = document.createElement("br");
 
-    speak.innerText = ("Gronk isn't very smart, so he only understands very specific phrases, like 'pick up rock' or 'go to door' try and keep your directions to him short and simple, or he will get confused.To start game, type 'play'. He also needs to 'use' tools on things in the room to interact with them, he's really dumb.");
+    speak.innerText = ("Gronk isn't very smart, so he only understands very specific phrases, like 'pick up rock' or 'go to door' try and keep your directions to him short and simple, or he will get confused.To start game, type 'play'. He also needs to 'use' tools on things in the room to interact with them, he's really dumb. The things Gronk understands are: 'use _____ on ___', 'pick up ____', 'go to _____' that is all he knows.");
 
     play.appendChild(speak);
     play.appendChild(pause);
