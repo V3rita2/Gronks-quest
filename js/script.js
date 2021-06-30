@@ -317,4 +317,4 @@ function gronkDo() {
 }
 $("#hatedOne").on("click", gronkDo);
 $(".tutorial").on("click", howToPlay);
-$(".credits").on("click", credits);
+// $(".credits").on("click", credits);
