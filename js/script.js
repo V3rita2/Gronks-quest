@@ -29,6 +29,8 @@ const description = {
     table: ("Table is wood, pointy stone have spirals on it. Gronk not know what words mean. Maybe Mork, the brutally cunning, know what words mean. Gronk read words for Mork. 'You can Often see my effects, Although I am not ever seen. I come after the cross, Before the screen, and in between the taper.' "),
     rock: ("Rock is metal and big. Gronk can't move rock. Light is on other side of rock."),
     stick: ("Gronk grab stick to look at, pull on stick, it move. Big metal rock fall into floor. Gronk see light clearly now that rock is gone. Gronk see all obstacles in Gronk's way."),
+    stone: ("Gronk see blue button, red button. Gronk see words, not know what means. Gronk will read word for Mork. 'All I'm offering is the truth, nothing more.'"),
+    wall: ("Wall is big and shiny. Crack in middle too small to see past.")
 };
 
 const use = {
@@ -58,6 +60,10 @@ const use = {
         pants: ("Gronk put pants on stick. Stick moves little."),
         pig: ("gronk not think put pig on stick good idea"),
     },
+    button: {
+        red: ("Gronk press red button. Metal wall opens, Gronk see small room past it."),
+        blue: ("Gronk press blue button. Metal wall open, Gronk see Gronk house and forest and family past it."),
+    }
 
 };
 //work around for the form reloading on submit
@@ -161,7 +167,17 @@ function gronkUse(tool, item) {
     else if (tool === "pig" && item === "table"){
         room1.stoneSolved = true;
         return room1.stoneSolved;
-    };
+    }
+    else if (tool === "red") {
+        room2.red = true;
+        room2.doorOpen = true;
+        return room2
+    }
+    else if (tool === "blue") {
+        room2.blue = true;
+        room2.doorOpen = true;
+        return room2
+    }
     return pockets;
 };
 
@@ -282,15 +298,23 @@ const room1 = {
 };
 
 const room2 = {
-    gronkEyes: ("Gronk see two button on large smooth stone. stone have words on it. Gronk also see metal rock far from Gronk, like last room."),
+    gronkEyes: ("Gronk see two button on large smooth stone. stone have words on it. Gronk also see metal wall far from Gronk, like last room."),
     
-    POI: ("stone", "rock", "red", "blue"),
+    POI: ("stone", "wall", "red", "blue"),
 
     doorOpen: false,
 
     blue: false,
 
     red: false,
+};
+
+const roomR = {
+    gronkEyes: ("Gronk steps into small room. Gronk turn around, but the door is gone. The room is so large Gronk can't see the walls. All Gronk sees is white. White and numbers. The numbers tell Gronk things, they whisper to him of other worlds, other realities beyond his own. The numbers say they come from the one Gronk knew as Mork, the One Beyond. The numbers tell Gronk his life hangs on what the One Beyond decides, if he should continue his existence, or be consigned to eternity in this void between. It is only now, now that Gronk has spent the equivalent of millenia learning, that he fears. He does not fear death, no. Death would be a mercy compared to the hollow existence this place offers. So, oh great Beyond One, Gronk hopes. He hopes that you are merciful. (type 'play' to play again)")
+};
+
+const roomB = {
+    gronkEyes: ("Gronk walk out to house. Gronk family run to Gronk. Gronk live happily until Gork come back and push Gronk down hole again.(type 'play' to play again)")
 };
 
 //what makes the game go
@@ -382,7 +406,26 @@ function gronkDo() {
                 };
                 break;
             case 2:
-        }
+                if (item !== "stone" && item !=="wall") {
+                    gronkConfuse(command);
+                }
+                else if (item === "stone") {
+                    gronkDescribes(item);
+                    pockets.push("red", "blue");
+                    return pockets;
+                }
+                else if (item === "wall" && room2.doorOpen === false) {
+                    gronkDescribes(item);
+                }
+                else if (item === "wall" && room2.doorOpen === true && room2.red === true) {
+                    gronkSpeaks(roomR.gronkEyes);
+                    gronk = false;
+                }
+                else if (item === "wall" && room2.doorOpen === true && room2.blue === true) {
+                    gronkSpeaks(roomB.gronkEyes);
+                    gronk = false;
+                };
+        };
             
         
     }
@@ -466,18 +509,37 @@ function gronkDo() {
                                 break;
                         };
                     };
-                case 2:   
-                
+                    break;
+                case 2:
+                    if (tool !== "red" && tool !== "blue") {
+                        gronkConfuse(command);
+                    }
+                    else {
+                        switch (item) {
+                            case "button":
+                                if (tool === "red" && room2.red === false && room2.blue === false) {
+                                    gronkUse(tool, item);
+                                }
+                                else if (tool === "blue" && room2.red === false && room2.blue === false) {
+                                    gronkUse(tool, item);
+                                }
+                                else if (tool === "red" || tool === "blue") {
+                                    gronkConfuse(command);
+                                };
+                                break;
+                        };
+                    };
+                    break;
                     
             };
         }
         //tells player they don't have the item they want to use
         else {
             noTool(tool);
-        }
+        };
         
 
-        }
+        };
     }
     else if (declaration === "play") {
         start();
