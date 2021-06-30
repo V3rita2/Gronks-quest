@@ -120,7 +120,7 @@ function gronkUse(tool, item) {
         pants = false;
         return pants;
     }
-    else if (tool === "rock" && item === "statue") {
+    else if (item === "statue") {
         statue = false;
         return statue;
     }
