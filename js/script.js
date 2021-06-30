@@ -129,6 +129,19 @@ function howToPlay() {
     play.appendChild(pause);
     play.appendChild(pause2);
 }
+
+//function to display credits
+function credits() {
+    let speak = document.createElement("span");
+    let pause = document.createElement("br");
+    let pause2 = document.createElement("br");
+
+    speak.innerText = ("QA consultants: Scubatapir, Jerome Chandler. QA testers: Phoenix, Grimm, Voidsketch. Puzzle consultants: D&D 5e Dungeon Master's guide, Beck, The 5th Element.");
+
+    play.appendChild(speak);
+    play.appendChild(pause);
+    play.appendChild(pause2);
+};
 //first room object
 const room0 = {
     gronkEyes: ("Hole is big and deep and smooth, Gronk can't climb out. Big statue near Gronk with shiny hand. Door away from Gronk on wall."),
@@ -202,3 +215,4 @@ function gronkDo() {
 }
 $("#hatedOne").on("click", gronkDo);
 $(".tutorial").on("click", howToPlay);
+$(".credits").on("click", credits);
